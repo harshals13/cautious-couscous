@@ -1,1 +1,24 @@
-<p>login works!</p>
+<app-menu></app-menu>
+<div class="row">
+
+        <div class="card" style="width: 22rem;margin: auto; margin-top: 100px">
+            <div class="card-body">
+              <h5 class="card-title">Login</h5>
+                <div>
+                  <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
+                      <div class="form-group">
+                          <label for="exampleInputEmail1">Email address</label>
+                          <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputPassword1">Password</label>
+                          <input type="password" class="form-control" formControlName="password" id="exampleInputPassword1" placeholder="Password">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                  </form>
+                </div>
+            </div>
+          </div>
+</div>
+
+
