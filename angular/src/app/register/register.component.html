@@ -1,0 +1,37 @@
+<app-menu></app-menu>
+<div class="row">
+
+  <div class="card" style="width: 52rem;margin: auto; margin-top: 100px">
+      <div class="card-body">
+        <h5 class="card-title">Login</h5>
+          <div>
+            <form [formGroup]="registerForm" (ngSubmit)="register(registerForm.value)">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Name</label>
+                    <input type="test" class="form-control" formControlName="name"  aria-describedby="emailHelp" placeholder="Enter your name">
+                </div>
+              <div class="form-group">
+                  <label for="exampleInputEmail1">Email address</label>
+                  <input type="email" class="form-control" formControlName="email"  aria-describedby="emailHelp" placeholder="Enter email">
+              </div>
+              <div class="form-group">
+                  <label for="exampleInputEmail1">Mobile Number</label>
+                  <input type="number" class="form-control" formControlName="mobile"  aria-describedby="emailHelp" placeholder="Enter mobile number">
+              </div>
+              <div class="form-group">
+                  <label for="exampleInputEmail1">City</label>
+                  <input type="test" class="form-control" formControlName="city"  aria-describedby="emailHelp" placeholder="Enter city">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" formControlName="password" id="exampleInputPassword1" placeholder="Password">
+              </div>
+              <div class="text-danger" *ngIf="registerForm.invalid">
+                Please enter all fields!
+              </div>
+                  <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+          </div>
+      </div>
+    </div>
+</div>

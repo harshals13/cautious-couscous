@@ -13,14 +13,17 @@ const options = {
 };
 
 router.get('/', (req, res) => {
+
+    let pageNumber = req.query.pagenumber;
+
     const params = {
         city_id: req.query.cityId,
-        collection_id: req.query.collectionId,
-        start: req.query.start,
-        count: req.query.count
+        start: pageNumber*10,
+        count: 10
     };
+    console.log(params);
 
-    request.get(config.zomatoUrl + `search?city_id=${params.city_id}&collection_id=${params.collection_id}&start=${params.start}&count=${count}` 
+    request.get(config.zomatoUrl + `search?city_id=${params.city_id}&start=${params.start}&count=${params.count}` 
                 , options, function(err,response,body){
         if(err) {
             res.json({

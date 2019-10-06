@@ -19,4 +19,40 @@ export class AuthService {
     return this.http.post(AppConfig.baseUrlV1 + '/user/login', data, this.options)
     .pipe();
   }
+
+  register(data): Observable< any > {
+    const responseType = 'json';
+    this.options = {
+      responseType
+    };
+    return this.http.post(AppConfig.baseUrlV1 + '/user', data, this.options)
+    .pipe();
+  }
+
+  getCities(): Observable< any > {
+    const responseType = 'json';
+    this.options = {
+      responseType
+    };
+    return this.http.get(AppConfig.baseUrlV1 + '/city', this.options)
+    .pipe();
+  }
+
+  getCollections(cityId): Observable< any > {
+    const responseType = 'json';
+    this.options = {
+      responseType
+    };
+    return this.http.get(AppConfig.baseUrlV1 + `/city/${cityId}/collections`, this.options)
+    .pipe();
+  }
+
+  getRestaurants(cityId, pageNumber): Observable< any > {
+    const responseType = 'json';
+    this.options = {
+      responseType
+    };
+    return this.http.get(AppConfig.baseUrlV1 + `/restaurant?cityId=${cityId}&pagenumber=${pageNumber}`, this.options)
+    .pipe();
+  }
 }

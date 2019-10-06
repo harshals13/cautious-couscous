@@ -24,11 +24,11 @@ export class LoginComponent implements OnInit {
   login(value) {
     this.authService.login(value).subscribe((data) => {
       console.log(data);
-      const user = JSON.stringify(data);
-      if (data.email) {
-        localStorage.setItem('email', data.email);
-        localStorage.setItem('name', data.fullName);
-        localStorage.setItem('mobile', data.mobile);
+      const user = JSON.stringify(data.responde);
+      if (data.response.email) {
+        localStorage.setItem('email', data.response.email);
+        localStorage.setItem('name', data.response.name);
+        localStorage.setItem('mobile', data.response.mobile);
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('user', user);
         this.router.navigate(['/home']);

@@ -1,0 +1,45 @@
+<app-menu></app-menu>
+
+<div style="margin-top: 50px">
+    <!-- <nav class="navbar navbar-dark bg-primary">
+          <input class="form-control mr-sm-4" type="text" value="Bangalore" disabled='true' aria-label="Search">
+          <select class="form-control mr-sm-4" placeholder="Select Package" (change)="getCollections($event)">
+            <option *ngFor="let city of cities" [value]='city.packageName'>{{city.packageName}}</option>
+          </select>
+          <input class="form-control mr-sm-4" type="date"  aria-label="Search">
+      </nav> -->
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>Select city</label>
+                <select class="form-control mr-sm-4" placeholder="Select Package" (change)="setCityId($event)">
+                    <option ></option>
+                    <option *ngFor="let city of cities" [value]='city.zomato_id'>{{city.name}}</option>
+                </select>
+            </div>
+          </div>
+          <div class="col-md-8"></div>
+        </div>
+        <div class="row">
+            <div class="card" style="width: 18rem; margin: 2%" *ngFor="let restaurant of restaurants">
+                <div class="card-body">
+                  <h5 class="card-title">{{restaurant.restaurant.name}}</h5>
+                  <div class="card-text">
+                    <ul style="list-style-type:none;">
+                      <li></li>
+                      <li></li>
+                    </ul>
+                  </div>
+                  <button class="btn btn-success float-right" >Select</button>
+
+                </div>
+              </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-12">
+              <pagination [totalItems]="60" [(ngModel)]="currentPage" (pageChanged)="getRestaurants($event)"></pagination>
+            </div>
+        </div>
+      </div>
+</div>
