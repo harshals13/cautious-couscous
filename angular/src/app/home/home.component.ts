@@ -1,6 +1,7 @@
 import { FormGroup, FormControl } from '@angular/forms';
 import { AuthService } from './../auth.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -13,10 +14,18 @@ export class HomeComponent implements OnInit {
   currentPage = 0;
   currentCity: any;
   keyword: any;
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.getCities();
+    this.checkForLoggedInUser();
+  }
+
+  checkForLoggedInUser() {
+    if (localStorage.isLoggedIn !== 'true'){
+      localStorage.clear();
+      this.router.navigate(['/login']);
+    }
   }
 
   setCityId(event) {

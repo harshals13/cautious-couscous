@@ -1,5 +1,6 @@
 import { AuthService } from './../auth.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -8,10 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
   restaurants = [];
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
-    this.getUsersFavouriteRestaurant();
+    this.checkForLoggedInUser();
+  }
+
+  checkForLoggedInUser() {
+    if (localStorage.isLoggedIn !== 'true') {
+      localStorage.clear();
+      this.router.navigate(['/login']);
+    }
   }
 
   getUsersFavouriteRestaurant() {
