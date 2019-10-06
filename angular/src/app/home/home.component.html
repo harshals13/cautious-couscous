@@ -19,9 +19,20 @@
                 </select>
             </div>
           </div>
-          <div class="col-md-8"></div>
+          <div class="col-md-4">
+            <div class="form-group">
+                <label>Search</label>
+                <input type="text" class="form-control" [(ngModel)]="keyword" >
+            </div>
+          </div>
+          <div class="col-md-4">
+              <div class="form-group">
+                  <button style="margin-top: 30px" class="btn btn-success" (click)="getRestaurants()">Search</button>
+              </div>
+          </div>
         </div>
         <div class="row">
+          <div style="margin: auto" *ngIf="restaurants.length === 0">Please select city to get restaurants</div>
             <div class="card" style="width: 20rem; margin: 2%" *ngFor="let restaurant of restaurants">
               <img class="card-img-top" src="{{restaurant.restaurant.featured_image}}" alt="Card image cap">
                 <div class="card-body">
@@ -38,10 +49,10 @@
               </div>
         </div>
         <div class="row">
-            <div class="col-xs-12 col-6" >
-              <div >
-                  <pagination style="margin: auto" [totalItems]="60" [(ngModel)]="currentPage" (pageChanged)="getRestaurants($event)"></pagination>
-              </div>
+            <div class="col-xs-12 col-12" style="margin-left: 380px">
+
+                  <pagination [totalItems]="60" [(ngModel)]="currentPage" (pageChanged)="getRestaurants($event)"></pagination>
+
             </div>
         </div>
       </div>

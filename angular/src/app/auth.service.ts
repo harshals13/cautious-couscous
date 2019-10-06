@@ -47,12 +47,12 @@ export class AuthService {
     .pipe();
   }
 
-  getRestaurants(cityId, pageNumber): Observable< any > {
+  getRestaurants(cityId, pageNumber, keyword): Observable< any > {
     const responseType = 'json';
     this.options = {
       responseType
     };
-    return this.http.get(AppConfig.baseUrlV1 + `/restaurant?cityId=${cityId}&pagenumber=${pageNumber}`, this.options)
+    return this.http.get(AppConfig.baseUrlV1 + `/restaurant?cityId=${cityId}&pagenumber=${pageNumber}&keyword=${keyword}`, this.options)
     .pipe();
   }
 
@@ -70,7 +70,7 @@ export class AuthService {
     this.options = {
       responseType
     };
-    return this.http.get(AppConfig.baseUrlV1 + `/restaurant/favourite/${email}`, this.options)
+    return this.http.get(AppConfig.baseUrlV1 + `/restaurant/getfavourites?email=sfsdf`, this.options)
     .pipe();
   }
 }

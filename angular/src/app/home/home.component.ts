@@ -1,3 +1,4 @@
+import { FormGroup, FormControl } from '@angular/forms';
 import { AuthService } from './../auth.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -11,6 +12,7 @@ export class HomeComponent implements OnInit {
   restaurants = [];
   currentPage = 0;
   currentCity: any;
+  keyword: any;
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
@@ -29,7 +31,7 @@ export class HomeComponent implements OnInit {
 
   getRestaurants() {
     if (this.currentCity) {
-      this.authService.getRestaurants(this.currentCity, this.currentPage).subscribe((data) => {
+      this.authService.getRestaurants(this.currentCity, this.currentPage, this.keyword).subscribe((data) => {
         this.restaurants = data.response.restaurants;
         console.log(data.response);
       });

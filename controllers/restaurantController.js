@@ -19,11 +19,12 @@ router.get('/', (req, res) => {
     const params = {
         city_id: req.query.cityId,
         start: pageNumber*10,
-        count: 10
+        count: 10,
+        keyword: req.query.keyword
     };
     console.log(params);
 
-    request.get(config.zomatoUrl + `search?city_id=${params.city_id}&start=${params.start}&count=${params.count}` 
+    request.get(config.zomatoUrl + `search?city_id=${params.city_id}&start=${params.start}&count=${params.count}&q=${params.keyword}` 
                 , options, function(err,response,body){
         if(err) {
             res.json({
@@ -54,10 +55,6 @@ router.get('/:id', (req, res) => {
         });
     });
 });
-
-router.post('/favourite/:email' , (req, res) => {
-  res.send("Hellow");
-})
 
 router.post('/favourite', (req, res) => {
   console.log("Setting as favourite");
