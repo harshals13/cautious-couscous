@@ -22,23 +22,26 @@
           <div class="col-md-8"></div>
         </div>
         <div class="row">
-            <div class="card" style="width: 18rem; margin: 2%" *ngFor="let restaurant of restaurants">
+            <div class="card" style="width: 20rem; margin: 2%" *ngFor="let restaurant of restaurants">
+              <img class="card-img-top" src="{{restaurant.restaurant.featured_image}}" alt="Card image cap">
                 <div class="card-body">
                   <h5 class="card-title">{{restaurant.restaurant.name}}</h5>
                   <div class="card-text">
                     <ul style="list-style-type:none;">
-                      <li></li>
+                      <li>{{restaurant.restaurant.cuisines}}</li>
                       <li></li>
                     </ul>
                   </div>
-                  <button class="btn btn-success float-right" >Select</button>
-
+                  <button class="btn btn-success float-right" (click)="setAsFavourite(restaurant.restaurant.id)">Set as favourite</button> &nbsp;
+                  <button class="btn btn-primary float-left" >Book</button>
                 </div>
               </div>
         </div>
         <div class="row">
-            <div class="col-xs-12 col-12">
-              <pagination [totalItems]="60" [(ngModel)]="currentPage" (pageChanged)="getRestaurants($event)"></pagination>
+            <div class="col-xs-12 col-6" >
+              <div >
+                  <pagination style="margin: auto" [totalItems]="60" [(ngModel)]="currentPage" (pageChanged)="getRestaurants($event)"></pagination>
+              </div>
             </div>
         </div>
       </div>

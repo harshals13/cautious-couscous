@@ -55,4 +55,22 @@ export class AuthService {
     return this.http.get(AppConfig.baseUrlV1 + `/restaurant?cityId=${cityId}&pagenumber=${pageNumber}`, this.options)
     .pipe();
   }
+
+  setRestaurantAsFavourite(restaurantId, email): Observable< any > {
+    const responseType = 'json';
+    this.options = {
+      responseType
+    };
+    return this.http.post(AppConfig.baseUrlV1 + `/restaurant/favourite?res_id=${restaurantId}&email=${email}`, null, this.options)
+    .pipe();
+  }
+
+  getUsersFavourite(email): Observable< any > {
+    const responseType = 'json';
+    this.options = {
+      responseType
+    };
+    return this.http.get(AppConfig.baseUrlV1 + `/restaurant/favourite/${email}`, this.options)
+    .pipe();
+  }
 }

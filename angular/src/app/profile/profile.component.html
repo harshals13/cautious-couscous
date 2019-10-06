@@ -1,0 +1,15 @@
+<app-menu></app-menu>
+
+<div class="card" style="width: 20rem; margin: 2%" *ngFor="let restaurant of restaurants">
+    <img class="card-img-top" src="{{restaurant.restaurant.featured_image}}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">{{restaurant.restaurant.name}}</h5>
+        <div class="card-text">
+          <ul style="list-style-type:none;">
+            <li>{{restaurant.restaurant.cuisines}}</li>
+            <li></li>
+          </ul>
+        </div>
+        <button class="btn btn-primary float-left" >Book</button>
+      </div>
+</div>
