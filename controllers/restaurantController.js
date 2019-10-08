@@ -39,9 +39,24 @@ router.get('/', (req, res) => {
     });
 });
 
+router.get('/favourites', (req, res) => {
+    Restaurant.find({userId: req.query.email}, function (err, docs) {
+        if(err) {
+            res.json({
+                status: 999,
+                response: err
+            });
+        }
+        res.json({
+            status: 0,
+            response: docs
+        });
+    })
+})
 
-router.get('/:id', (req, res) => {
-    request.get(config.zomatoUrl + `restaurant?res_id=${req.params.res_id}` 
+// Get restaurant details
+router.get('/', (req, res) => {
+    request.get(config.zomatoUrl + `restaurant?res_id=${req.query.res_id}` 
                 , options, function(err,response,body){
         if(err) {
             res.json({
@@ -56,6 +71,7 @@ router.get('/:id', (req, res) => {
     });
 });
 
+// Set restaurant as favourite
 router.post('/favourite', (req, res) => {
   console.log("Setting as favourite");
     Restaurant.findOne({userId: req.query.email, "restaurant.id": req.query.res_id}, function (err, docs) {
@@ -85,7 +101,8 @@ router.post('/favourite', (req, res) => {
                 });
             });
         }
-    })
-})
+    });
+});
+
 
 module.exports = router;

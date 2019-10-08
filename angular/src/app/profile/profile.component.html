@@ -1,12 +1,37 @@
 <app-menu></app-menu>
 
-
-
-<div class="card" style="width:400px">
-    <img class="card-img-top" src="img_avatar1.png" alt="Card image">
-    <div class="card-body">
-      <h4 class="card-title"></h4>
-      <p class="card-text">Some example text.</p>
-      <a href="#" class="btn btn-primary">See Profile</a>
-    </div>
+<div class="container">
+  <br>
+  <div class="row">
+      <div class="card" style="width:50%; margin: auto">
+          <div class="card-body">
+            <h4 class="card-title">User Profile</h4>
+            <div class="text-center">
+                <p class="card-text">{{name}}</p>
+                <p class="card-text">{{email}}</p>
+                <p class="card-text">{{mobile}}</p>
+            </div>
+          </div>
+        </div>
   </div>
+  <br>
+  <h3>Your favourite restaurants</h3>
+  <div class="row">
+    
+      <div style="margin: auto" *ngIf="restaurants.length === 0">Please select city to get restaurants</div>
+        <div class="card" style="width: 20rem; margin: 2%" *ngFor="let restaurant of restaurants">
+          <img class="card-img-top" src="{{restaurant.restaurant.featured_image}}" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">{{restaurant.restaurant.name}}</h5>
+              <div class="card-text">
+                <ul style="list-style-type:none;">
+                  <li>{{restaurant.restaurant.cuisines}}</li>
+                  <li></li>
+                </ul>
+              </div>
+              <button class="btn btn-primary float-left" >Book</button>
+            </div>
+          </div>
+    </div>
+</div>
+
