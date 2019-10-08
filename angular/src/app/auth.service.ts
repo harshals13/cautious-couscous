@@ -70,7 +70,25 @@ export class AuthService {
     this.options = {
       responseType
     };
-    return this.http.get(AppConfig.baseUrlV1 + `/restaurant/getfavourites?email=sfsdf`, this.options)
+    return this.http.get(AppConfig.baseUrlV1 + `/restaurant/favourites?email=${email}`, this.options)
+    .pipe();
+  }
+
+  bookRestaurant(data): Observable< any > {
+    const responseType = 'json';
+    this.options = {
+      responseType
+    };
+    return this.http.post(AppConfig.baseUrlV1 + `/booking/`, data, this.options)
+    .pipe();
+  }
+
+  getAllBookingDetails(email): Observable< any > {
+    const responseType = 'json';
+    this.options = {
+      responseType
+    };
+    return this.http.get(AppConfig.baseUrlV1 + `/booking/?email=${email}`, this.options)
     .pipe();
   }
 }

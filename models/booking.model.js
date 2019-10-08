@@ -12,6 +12,9 @@ var bookingSchema = new mongoose.Schema({
     },
     bookingTime: {
       type: Date
+    },
+    isCompleted: {
+      type: Boolean
     }
 
 });

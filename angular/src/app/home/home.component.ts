@@ -1,8 +1,8 @@
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from './../auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -11,18 +11,37 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   cities = [];
   restaurants = [];
+  allBookingDetails = [];
   currentPage = 0;
   currentCity: any;
   keyword: any;
-  constructor(private authService: AuthService, private router: Router) { }
+  modalRef: BsModalRef;
+  bookingForm: FormGroup;
+  selectedRestaurant: any;
+  numberOfPeopleError = false;
+  guestExceededError = false;
+  constructor(private authService: AuthService, private router: Router, private modalService: BsModalService) { }
 
   ngOnInit() {
     this.getCities();
     this.checkForLoggedInUser();
+    this.getAllBookingDetails();
+    this.bookingForm = new FormGroup({
+      numberOfPeople: new FormControl('', Validators.required),
+      bookingTime: new FormControl('', Validators.required)
+    });
+  }
+
+  getAllBookingDetails() {
+    this.authService.getAllBookingDetails(localStorage.email).subscribe((res) => {
+      this.allBookingDetails = res.response;
+      console.log(this.allBookingDetails);
+      this.checkForGuestsExceeded();
+    });
   }
 
   checkForLoggedInUser() {
-    if (localStorage.isLoggedIn !== 'true'){
+    if (localStorage.isLoggedIn !== 'true') {
       localStorage.clear();
       this.router.navigate(['/login']);
     }
@@ -41,8 +60,8 @@ export class HomeComponent implements OnInit {
   getRestaurants() {
     if (this.currentCity) {
       this.authService.getRestaurants(this.currentCity, this.currentPage, this.keyword).subscribe((data) => {
-        this.restaurants = data.response.restaurants;
-        console.log(data.response);
+      this.restaurants = data.response.restaurants;
+      console.log(data.response);
       });
     }
   }
@@ -51,8 +70,6 @@ export class HomeComponent implements OnInit {
     this.authService.getCities().subscribe((data) => {
       this.cities = data.response;
     });
-    // const data = {"status":0,"response":[{"_id":"5d987b5757b9e02118b84207","name":"Bengaluru","zomato_id":4},{"_id":"5d987b854e7d0b21182f0221","name":"Chennai","zomato_id":7},{"_id":"5d987b934e7d0b21182f0222","name":"Delhi","zomato_id":1},{"_id":"5d987b9f4e7d0b21182f0223","name":"Mumbai","zomato_id":3},{"_id":"5d98b3ad4e7d0b21182f0224","name":"Hyderabad","zomato_id":6}]}
-    // this.cities = data.response
   }
 
   setAsFavourite(restaurantId) {
@@ -61,4 +78,45 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  openBookingModal(template, restaurant) {
+    this.bookingForm.reset();
+    this.modalRef = this.modalService.show(template);
+    this.selectedRestaurant = restaurant;
+  }
+
+  confirmBooking(value) {
+    if (this.bookingForm.valid && !this.guestExceededError) {
+      const data = {
+        userEmail: localStorage.email,
+        res_id: this.selectedRestaurant.restaurant.id,
+        numberOfPeople: value.numberOfPeople,
+        bookingTime: value.bookingTime,
+        isCompleted: false
+      };
+      this.authService.bookRestaurant(data).subscribe((res) => {
+        if (res.status === 0) {
+          this.modalRef.hide();
+          this.getAllBookingDetails();
+        }
+        console.log(res);
+      });
+    } else {
+      if (this.bookingForm.value.numberOfPeople > 6) {
+        this.numberOfPeopleError = true;
+      }
+    }
+  }
+
+  checkForGuestsExceeded() {
+    let totalGuests = 0;
+    for (const booking of this.allBookingDetails) {
+      if (booking.isCompleted === false) {
+        totalGuests = totalGuests + booking.numberOfPeople;
+      }
+    }
+
+    if (totalGuests > 20) {
+      this.guestExceededError = true;
+    }
+  }
 }

@@ -9,10 +9,21 @@ import { Router } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
   restaurants = [];
+  name: any;
+  email: any;
+  mobile: any;
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.checkForLoggedInUser();
+    this.getUserData()
+    this.getUsersFavouriteRestaurant();
+  }
+
+  getUserData() {
+    this.name = localStorage.name;
+    this.email = localStorage.email;
+    this.mobile = localStorage.mobile;
   }
 
   checkForLoggedInUser() {
@@ -25,6 +36,7 @@ export class ProfileComponent implements OnInit {
   getUsersFavouriteRestaurant() {
     this.authService.getUsersFavourite(localStorage.email).subscribe((data) => {
       console.log(data);
-    });
+      this.restaurants = data.response;
+     });
   }
 }

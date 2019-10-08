@@ -8,7 +8,7 @@ const Booking = mongoose.model('Booking');
 // Get bookings by user email
 router.get('/', (req, res) => {
     const today = new Date();
-    Booking.find({userEmail: req.query.userId, bookingDate: {$gt: today}}, function(err, docs) {
+    Booking.find({userEmail: req.query.email}, function(err, docs) {
         if(!err) {
             res.json({
                 status: 0,
@@ -27,11 +27,11 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
     let booking = new Booking();
 
-    booking.userEmail = req.body.email;
+    booking.userEmail = req.body.userEmail;
     booking.res_id = req.body.res_id;
     booking.numberOfPeople = req.body.numberOfPeople;
     booking.bookingTime = req.body.bookingTime;
-
+    booking.isCompleted = req.body.isCompleted;
     booking.save((err, doc) => {
         if(!err) {
             res.json({

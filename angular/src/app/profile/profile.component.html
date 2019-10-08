@@ -17,8 +17,8 @@
   <br>
   <h3>Your favourite restaurants</h3>
   <div class="row">
-    
-      <div style="margin: auto" *ngIf="restaurants.length === 0">Please select city to get restaurants</div>
+
+      <div style="margin: auto" *ngIf="restaurants?.length === 0">You do not have any favourite restaurants</div>
         <div class="card" style="width: 20rem; margin: 2%" *ngFor="let restaurant of restaurants">
           <img class="card-img-top" src="{{restaurant.restaurant.featured_image}}" alt="Card image cap">
             <div class="card-body">
@@ -29,7 +29,6 @@
                   <li></li>
                 </ul>
               </div>
-              <button class="btn btn-primary float-left" >Book</button>
             </div>
           </div>
     </div>

@@ -44,7 +44,7 @@
                     </ul>
                   </div>
                   <button class="btn btn-success float-right" (click)="setAsFavourite(restaurant.restaurant.id)">Set as favourite</button> &nbsp;
-                  <button class="btn btn-primary float-left" >Book</button>
+                  <button class="btn btn-primary float-left" (click)="openBookingModal(bookingModal, restaurant)" >Book</button>
                 </div>
               </div>
         </div>
@@ -57,3 +57,27 @@
         </div>
       </div>
 </div>
+
+<ng-template #bookingModal>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Book Restaurant ({{selectedRestaurant.restaurant.name}})</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="bookingForm" (ngSubmit)="confirmBooking(bookingForm.value)">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Number of guests*</label>
+                <input type="number" max="6" min="1" class="form-control" formControlName="numberOfPeople">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Booking Time*</label>
+                <input type="datetime-local" class="form-control" formControlName="bookingTime">
+              </div>
+              <div class="text-danger" *ngIf="bookingForm.invalid">Enter all required fields</div>
+              <div class="text-danger" *ngIf="guestExceededError">You have exceeded 20 guests through all your bookings</div>
+              <button type="submit" class="btn btn-primary">Book</button>
+        </form>
+    </div>
+</ng-template>
