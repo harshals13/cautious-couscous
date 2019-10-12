@@ -55,6 +55,7 @@ export class HomeComponent implements OnInit {
   changePageNumber(event) {
     this.currentPage = event.page;
     console.log(this.currentPage);
+    this.getRestaurants();
   }
 
   getRestaurants() {

@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
 
     const params = {
         city_id: req.query.cityId,
-        start: pageNumber*10,
+        start: pageNumber*10 - 10,
         count: 10,
         keyword: req.query.keyword
     };

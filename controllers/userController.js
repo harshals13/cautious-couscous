@@ -47,7 +47,7 @@ function loginUser(req, res) {
 
 function registerNewUser(req, res) {
     let user = new User();
-    user.name = req.body.fullName;
+    user.name = req.body.name;
     user.email = req.body.email;
     user.mobile = req.body.mobile;
     user.city = req.body.city;

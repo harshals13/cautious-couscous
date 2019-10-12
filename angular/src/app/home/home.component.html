@@ -51,7 +51,7 @@
         <div class="row">
             <div class="col-xs-12 col-12" style="margin-left: 380px">
 
-                  <pagination [totalItems]="60" [(ngModel)]="currentPage" (pageChanged)="getRestaurants($event)"></pagination>
+                  <pagination [totalItems]="60" [(ngModel)]="currentPage" (pageChanged)="changePageNumber($event)"></pagination>
 
             </div>
         </div>
